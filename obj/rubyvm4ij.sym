@@ -1,0 +1,15 @@
+00007000 T main
+0000701c T __gnu_thumb1_case_uhi
+00007030 t .divsi3_skip_div0_test
+00007030 T __aeabi_idiv
+00007030 T __divsi3
+000071fc T __aeabi_idivmod
+00007204 W __aeabi_idiv0
+00007204 W __aeabi_ldiv0
+00007208 T irep_get
+000072b2 T irep_atol
+000072e2 T mrb_strcmp
+000072f8 T mrb_memory_find
+00007332 T mrb_memory_add
+00007370 T emb_method
+00007494 T irep_exec

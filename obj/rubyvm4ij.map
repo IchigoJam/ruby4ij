@@ -1,0 +1,191 @@
+Archive member included to satisfy reference by file (symbol)
+
+/Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                              obj/main.o (__gnu_thumb1_case_uhi)
+/Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                              obj/main.o (__aeabi_idiv)
+/Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                              /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o) (__aeabi_idiv0)
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 obj/main.o
+ .data          0x0000000000000000        0x0 obj/main.o
+ .bss           0x0000000000000000        0x0 obj/main.o
+ .text.showRegs
+                0x0000000000000000        0x2 obj/main.o
+ .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .data          0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+PROG             0x0000000000007000 0x0000000000001000 xr
+RAM              0x0000000010000000 0x0000000000000400 w
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD obj/main.o
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc.a
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a
+START GROUP
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/libg.a
+LOAD /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/libc.a
+END GROUP
+
+.text           0x0000000000007000      0x208
+ *(.main)
+ .main          0x0000000000007000       0x1c obj/main.o
+                0x0000000000007000                main
+ .text          0x000000000000701c       0x14 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                0x000000000000701c                __gnu_thumb1_case_uhi
+ .text          0x0000000000007030      0x1d4 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                0x0000000000007030                __aeabi_idiv
+                0x0000000000007030                __divsi3
+                0x00000000000071fc                __aeabi_idivmod
+ .text          0x0000000000007204        0x4 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                0x0000000000007204                __aeabi_ldiv0
+                0x0000000000007204                __aeabi_idiv0
+OUTPUT(obj/rubyvm4ij.axf elf32-littlearm)
+
+.glue_7         0x0000000000007208        0x0
+ .glue_7        0x0000000000007208        0x0 linker stubs
+
+.glue_7t        0x0000000000007208        0x0
+ .glue_7t       0x0000000000007208        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000007208        0x0
+ .vfp11_veneer  0x0000000000007208        0x0 linker stubs
+
+.v4_bx          0x0000000000007208        0x0
+ .v4_bx         0x0000000000007208        0x0 linker stubs
+
+.text.irep_get  0x0000000000007208       0xaa
+ .text.irep_get
+                0x0000000000007208       0xaa obj/main.o
+                0x0000000000007208                irep_get
+
+.text.irep_atol
+                0x00000000000072b2       0x30
+ .text.irep_atol
+                0x00000000000072b2       0x30 obj/main.o
+                0x00000000000072b2                irep_atol
+
+.text.mrb_strcmp
+                0x00000000000072e2       0x16
+ .text.mrb_strcmp
+                0x00000000000072e2       0x16 obj/main.o
+                0x00000000000072e2                mrb_strcmp
+
+.text.mrb_memory_find
+                0x00000000000072f8       0x3a
+ .text.mrb_memory_find
+                0x00000000000072f8       0x3a obj/main.o
+                0x00000000000072f8                mrb_memory_find
+
+.text.mrb_memory_add
+                0x0000000000007332       0x3c
+ .text.mrb_memory_add
+                0x0000000000007332       0x3c obj/main.o
+                0x0000000000007332                mrb_memory_add
+
+.text.emb_method
+                0x0000000000007370      0x124
+ .text.emb_method
+                0x0000000000007370      0x124 obj/main.o
+                0x0000000000007370                emb_method
+
+.text.irep_exec
+                0x0000000000007494      0x460
+ .text.irep_exec
+                0x0000000000007494      0x460 obj/main.o
+                0x0000000000007494                irep_exec
+
+.iplt           0x00000000000078f4        0x0
+ .iplt          0x00000000000078f4        0x0 obj/main.o
+
+.igot.plt       0x00000000000078f4        0x0
+ .igot.plt      0x00000000000078f4        0x0 obj/main.o
+
+.rodata.emb_method.str1.1
+                0x00000000000078f4       0x25
+ .rodata.emb_method.str1.1
+                0x00000000000078f4       0x25 obj/main.o
+
+.rodata.irep_exec.str1.1
+                0x0000000000007919        0xb
+ .rodata.irep_exec.str1.1
+                0x0000000000007919        0xb obj/main.o
+
+.rel.dyn        0x0000000000007924        0x0
+ .rel.iplt      0x0000000000007924        0x0 obj/main.o
+
+.debug_info     0x0000000000000000      0xece
+ .debug_info    0x0000000000000000      0xece obj/main.o
+
+.debug_abbrev   0x0000000000000000      0x3e5
+ .debug_abbrev  0x0000000000000000      0x3e5 obj/main.o
+
+.debug_loc      0x0000000000000000     0x174e
+ .debug_loc     0x0000000000000000     0x174e obj/main.o
+
+.debug_aranges  0x0000000000000000       0x60
+ .debug_aranges
+                0x0000000000000000       0x60 obj/main.o
+
+.debug_ranges   0x0000000000000000      0x1f0
+ .debug_ranges  0x0000000000000000      0x1f0 obj/main.o
+
+.debug_line     0x0000000000000000      0x2e9
+ .debug_line    0x0000000000000000      0x2e9 obj/main.o
+
+.debug_str      0x0000000000000000      0x629
+ .debug_str     0x0000000000000000      0x629 obj/main.o
+                                        0x672 (size before relaxing)
+
+.comment        0x0000000000000000       0x7f
+ .comment       0x0000000000000000       0x7f obj/main.o
+                                         0x80 (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x31
+ .ARM.attributes
+                0x0000000000000000       0x31 obj/main.o
+ .ARM.attributes
+                0x0000000000000031       0x1e /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+ .ARM.attributes
+                0x000000000000004f       0x1e /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x000000000000006d       0x1e /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+
+.debug_frame    0x0000000000000000      0x134
+ .debug_frame   0x0000000000000000      0x114 obj/main.o
+ .debug_frame   0x0000000000000114       0x20 /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+
+Cross Reference Table
+
+Symbol                                            File
+__aeabi_idiv                                      /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+                                                  obj/main.o
+__aeabi_idiv0                                     /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+                                                  /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+__aeabi_idivmod                                   /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+__aeabi_ldiv0                                     /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_dvmd_tls.o)
+__divsi3                                          /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_divsi3.o)
+__gnu_thumb1_case_uhi                             /Users/fukuno/bin/gcc-arm-none-eabi-7-2018-q2-update/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v6-m/libgcc.a(_thumb1_case_uhi.o)
+                                                  obj/main.o
+emb_method                                        obj/main.o
+irep_atol                                         obj/main.o
+irep_exec                                         obj/main.o
+irep_get                                          obj/main.o
+main                                              obj/main.o
+mrb_memory_add                                    obj/main.o
+mrb_memory_find                                   obj/main.o
+mrb_strcmp                                        obj/main.o
+showRegs                                          obj/main.o
