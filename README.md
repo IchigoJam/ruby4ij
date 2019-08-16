@@ -7,6 +7,9 @@ This tool provide to convert mruby 2.0 file to bin file for IchigoJam BASIC.
 * For IchigoJam BASIC 1.4b9 or higher for LPC1114  
 https://github.com/IchigoJam/IchigoJam.github.io  
 
+see also  
+https://fukuno.jig.jp/2579  
+
 
 ## Example
 
