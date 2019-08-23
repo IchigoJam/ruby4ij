@@ -96,44 +96,44 @@ OUTPUT(obj/rubyvm4ij.axf elf32-littlearm)
                 0x0000000000007332                mrb_memory_add
 
 .text.emb_method
-                0x0000000000007370      0x124
+                0x0000000000007370      0x144
  .text.emb_method
-                0x0000000000007370      0x124 obj/main.o
+                0x0000000000007370      0x144 obj/main.o
                 0x0000000000007370                emb_method
 
 .text.irep_exec
-                0x0000000000007494      0x460
+                0x00000000000074b4      0x460
  .text.irep_exec
-                0x0000000000007494      0x460 obj/main.o
-                0x0000000000007494                irep_exec
+                0x00000000000074b4      0x460 obj/main.o
+                0x00000000000074b4                irep_exec
 
-.iplt           0x00000000000078f4        0x0
- .iplt          0x00000000000078f4        0x0 obj/main.o
+.iplt           0x0000000000007914        0x0
+ .iplt          0x0000000000007914        0x0 obj/main.o
 
-.igot.plt       0x00000000000078f4        0x0
- .igot.plt      0x00000000000078f4        0x0 obj/main.o
+.igot.plt       0x0000000000007914        0x0
+ .igot.plt      0x0000000000007914        0x0 obj/main.o
 
 .rodata.emb_method.str1.1
-                0x00000000000078f4       0x25
+                0x0000000000007914       0x29
  .rodata.emb_method.str1.1
-                0x00000000000078f4       0x25 obj/main.o
+                0x0000000000007914       0x29 obj/main.o
 
 .rodata.irep_exec.str1.1
-                0x0000000000007919        0xb
+                0x000000000000793d        0xb
  .rodata.irep_exec.str1.1
-                0x0000000000007919        0xb obj/main.o
+                0x000000000000793d        0xb obj/main.o
 
-.rel.dyn        0x0000000000007924        0x0
- .rel.iplt      0x0000000000007924        0x0 obj/main.o
+.rel.dyn        0x0000000000007948        0x0
+ .rel.iplt      0x0000000000007948        0x0 obj/main.o
 
-.debug_info     0x0000000000000000      0xece
- .debug_info    0x0000000000000000      0xece obj/main.o
+.debug_info     0x0000000000000000      0xeeb
+ .debug_info    0x0000000000000000      0xeeb obj/main.o
 
 .debug_abbrev   0x0000000000000000      0x3e5
  .debug_abbrev  0x0000000000000000      0x3e5 obj/main.o
 
-.debug_loc      0x0000000000000000     0x174e
- .debug_loc     0x0000000000000000     0x174e obj/main.o
+.debug_loc      0x0000000000000000     0x178d
+ .debug_loc     0x0000000000000000     0x178d obj/main.o
 
 .debug_aranges  0x0000000000000000       0x60
  .debug_aranges
@@ -142,8 +142,8 @@ OUTPUT(obj/rubyvm4ij.axf elf32-littlearm)
 .debug_ranges   0x0000000000000000      0x1f0
  .debug_ranges  0x0000000000000000      0x1f0 obj/main.o
 
-.debug_line     0x0000000000000000      0x2e9
- .debug_line    0x0000000000000000      0x2e9 obj/main.o
+.debug_line     0x0000000000000000      0x2f0
+ .debug_line    0x0000000000000000      0x2f0 obj/main.o
 
 .debug_str      0x0000000000000000      0x629
  .debug_str     0x0000000000000000      0x629 obj/main.o

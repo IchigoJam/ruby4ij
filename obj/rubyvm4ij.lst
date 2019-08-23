@@ -15,33 +15,33 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   5 .text.mrb_memory_add 0000003c  00007332  00007332  00007332  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  6 .text.emb_method 00000124  00007370  00007370  00007370  2**2
+  6 .text.emb_method 00000144  00007370  00007370  00007370  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  7 .text.irep_exec 00000460  00007494  00007494  00007494  2**2
+  7 .text.irep_exec 00000460  000074b4  000074b4  000074b4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  8 .rodata.emb_method.str1.1 00000025  000078f4  000078f4  000078f4  2**0
+  8 .rodata.emb_method.str1.1 00000029  00007914  00007914  00007914  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  9 .rodata.irep_exec.str1.1 0000000b  00007919  00007919  00007919  2**0
+  9 .rodata.irep_exec.str1.1 0000000b  0000793d  0000793d  0000793d  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
- 10 .debug_info   00000ece  00000000  00000000  00007924  2**0
+ 10 .debug_info   00000eeb  00000000  00000000  00007948  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 000003e5  00000000  00000000  000087f2  2**0
+ 11 .debug_abbrev 000003e5  00000000  00000000  00008833  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    0000174e  00000000  00000000  00008bd7  2**0
+ 12 .debug_loc    0000178d  00000000  00000000  00008c18  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_aranges 00000060  00000000  00000000  0000a325  2**0
+ 13 .debug_aranges 00000060  00000000  00000000  0000a3a5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_ranges 000001f0  00000000  00000000  0000a385  2**0
+ 14 .debug_ranges 000001f0  00000000  00000000  0000a405  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_line   000002e9  00000000  00000000  0000a575  2**0
+ 15 .debug_line   000002f0  00000000  00000000  0000a5f5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_str    00000629  00000000  00000000  0000a85e  2**0
+ 16 .debug_str    00000629  00000000  00000000  0000a8e5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .comment      0000007f  00000000  00000000  0000ae87  2**0
+ 17 .comment      0000007f  00000000  00000000  0000af0e  2**0
                   CONTENTS, READONLY
- 18 .ARM.attributes 00000031  00000000  00000000  0000af06  2**0
+ 18 .ARM.attributes 00000031  00000000  00000000  0000af8d  2**0
                   CONTENTS, READONLY
- 19 .debug_frame  00000134  00000000  00000000  0000af38  2**2
+ 19 .debug_frame  00000134  00000000  00000000  0000afc0  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ int main(int param, int ram, int rom, uint64_t (*divfunc)()) {
     700c:	9201      	str	r2, [sp, #4]
     700e:	9202      	str	r2, [sp, #8]
 	return mrb_run(&vm, mrbfile);
-    7010:	f000 fa40 	bl	7494 <irep_exec>
+    7010:	f000 fa50 	bl	74b4 <irep_exec>
 }
     7014:	b041      	add	sp, #260	; 0x104
     7016:	bd00      	pop	{pc}
@@ -666,7 +666,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     7372:	000e      	movs	r6, r1
     7374:	0007      	movs	r7, r0
 	if (mrb_strcmp(func, "cls") == 0) {
-    7376:	493e      	ldr	r1, [pc, #248]	; (7470 <emb_method+0x100>)
+    7376:	4945      	ldr	r1, [pc, #276]	; (748c <emb_method+0x11c>)
     7378:	0030      	movs	r0, r6
 void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int paramlen) {
     737a:	0015      	movs	r5, r2
@@ -682,7 +682,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
 }
     738c:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
 	} else if (mrb_strcmp(func, "lc") == 0) {
-    738e:	4939      	ldr	r1, [pc, #228]	; (7474 <emb_method+0x104>)
+    738e:	4940      	ldr	r1, [pc, #256]	; (7490 <emb_method+0x120>)
     7390:	0030      	movs	r0, r6
     7392:	f7ff ffa6 	bl	72e2 <mrb_strcmp>
     7396:	2800      	cmp	r0, #0
@@ -695,10 +695,11 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     73a2:	881b      	ldrh	r3, [r3, #0]
     73a4:	6851      	ldr	r1, [r2, #4]
     73a6:	5928      	ldr	r0, [r5, r4]
+		out(7, reg[a + 1]);
     73a8:	4798      	blx	r3
     73aa:	e7ef      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "scr") == 0) {
-    73ac:	4932      	ldr	r1, [pc, #200]	; (7478 <emb_method+0x108>)
+    73ac:	4939      	ldr	r1, [pc, #228]	; (7494 <emb_method+0x124>)
     73ae:	0030      	movs	r0, r6
     73b0:	f7ff ff97 	bl	72e2 <mrb_strcmp>
     73b4:	2800      	cmp	r0, #0
@@ -716,7 +717,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     73ca:	6030      	str	r0, [r6, #0]
     73cc:	e7de      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "inkey") == 0) {
-    73ce:	492b      	ldr	r1, [pc, #172]	; (747c <emb_method+0x10c>)
+    73ce:	4932      	ldr	r1, [pc, #200]	; (7498 <emb_method+0x128>)
     73d0:	0030      	movs	r0, r6
     73d2:	f7ff ff86 	bl	72e2 <mrb_strcmp>
     73d6:	2800      	cmp	r0, #0
@@ -729,7 +730,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     73e2:	5160      	str	r0, [r4, r5]
     73e4:	e7d2      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "rnd") == 0) {
-    73e6:	4926      	ldr	r1, [pc, #152]	; (7480 <emb_method+0x110>)
+    73e6:	492d      	ldr	r1, [pc, #180]	; (749c <emb_method+0x12c>)
     73e8:	0030      	movs	r0, r6
     73ea:	f7ff ff7a 	bl	72e2 <mrb_strcmp>
     73ee:	2800      	cmp	r0, #0
@@ -746,7 +747,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     7402:	6020      	str	r0, [r4, #0]
     7404:	e7c2      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "wait") == 0) {
-    7406:	491f      	ldr	r1, [pc, #124]	; (7484 <emb_method+0x114>)
+    7406:	4926      	ldr	r1, [pc, #152]	; (74a0 <emb_method+0x130>)
     7408:	0030      	movs	r0, r6
     740a:	f7ff ff6a 	bl	72e2 <mrb_strcmp>
     740e:	2800      	cmp	r0, #0
@@ -761,7 +762,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     741c:	4798      	blx	r3
     741e:	e7b5      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "!=") == 0) {
-    7420:	4919      	ldr	r1, [pc, #100]	; (7488 <emb_method+0x118>)
+    7420:	4920      	ldr	r1, [pc, #128]	; (74a4 <emb_method+0x134>)
     7422:	0030      	movs	r0, r6
     7424:	f7ff ff5d 	bl	72e2 <mrb_strcmp>
     7428:	2800      	cmp	r0, #0
@@ -780,7 +781,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     743e:	602b      	str	r3, [r5, #0]
     7440:	e7a4      	b.n	738c <emb_method+0x1c>
 	} else if (mrb_strcmp(func, "p") == 0) {
-    7442:	4912      	ldr	r1, [pc, #72]	; (748c <emb_method+0x11c>)
+    7442:	4919      	ldr	r1, [pc, #100]	; (74a8 <emb_method+0x138>)
     7444:	0030      	movs	r0, r6
     7446:	f7ff ff4c 	bl	72e2 <mrb_strcmp>
     744a:	2800      	cmp	r0, #0
@@ -791,7 +792,7 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     7452:	23c4      	movs	r3, #196	; 0xc4
     7454:	e7e0      	b.n	7418 <emb_method+0xa8>
 	} else if (mrb_strcmp(func, "print") == 0) {
-    7456:	490e      	ldr	r1, [pc, #56]	; (7490 <emb_method+0x120>)
+    7456:	4915      	ldr	r1, [pc, #84]	; (74ac <emb_method+0x13c>)
     7458:	0030      	movs	r0, r6
     745a:	f7ff ff42 	bl	72e2 <mrb_strcmp>
     745e:	2800      	cmp	r0, #0
@@ -801,683 +802,699 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
     7464:	00a4      	lsls	r4, r4, #2
     7466:	23c8      	movs	r3, #200	; 0xc8
     7468:	e7d6      	b.n	7418 <emb_method+0xa8>
+	} else if (mrb_strcmp(func, "led") == 0) {
+    746a:	4911      	ldr	r1, [pc, #68]	; (74b0 <emb_method+0x140>)
+    746c:	0030      	movs	r0, r6
+    746e:	f7ff ff38 	bl	72e2 <mrb_strcmp>
+    7472:	2800      	cmp	r0, #0
+    7474:	d106      	bne.n	7484 <emb_method+0x114>
+		out(7, reg[a + 1]);
+    7476:	23d8      	movs	r3, #216	; 0xd8
+    7478:	3401      	adds	r4, #1
+    747a:	00a4      	lsls	r4, r4, #2
+    747c:	881b      	ldrh	r3, [r3, #0]
+    747e:	5961      	ldr	r1, [r4, r5]
+    7480:	3007      	adds	r0, #7
+    7482:	e791      	b.n	73a8 <emb_method+0x38>
 		vm->err = MRB_ERR_NO_METHOD;
-    746a:	2302      	movs	r3, #2
-    746c:	603b      	str	r3, [r7, #0]
+    7484:	2302      	movs	r3, #2
+    7486:	603b      	str	r3, [r7, #0]
 }
-    746e:	e78d      	b.n	738c <emb_method+0x1c>
-    7470:	000078f4 	.word	0x000078f4
-    7474:	000078f8 	.word	0x000078f8
-    7478:	000078fb 	.word	0x000078fb
-    747c:	000078ff 	.word	0x000078ff
-    7480:	00007905 	.word	0x00007905
-    7484:	00007909 	.word	0x00007909
-    7488:	0000790e 	.word	0x0000790e
-    748c:	00007911 	.word	0x00007911
-    7490:	00007913 	.word	0x00007913
+    7488:	e780      	b.n	738c <emb_method+0x1c>
+    748a:	46c0      	nop			; (mov r8, r8)
+    748c:	00007914 	.word	0x00007914
+    7490:	00007918 	.word	0x00007918
+    7494:	0000791b 	.word	0x0000791b
+    7498:	0000791f 	.word	0x0000791f
+    749c:	00007925 	.word	0x00007925
+    74a0:	00007929 	.word	0x00007929
+    74a4:	0000792e 	.word	0x0000792e
+    74a8:	00007931 	.word	0x00007931
+    74ac:	00007933 	.word	0x00007933
+    74b0:	00007939 	.word	0x00007939
 
 Disassembly of section .text.irep_exec:
 
-00007494 <irep_exec>:
+000074b4 <irep_exec>:
 int irep_exec(struct mrb_vm* vm, const uint8_t* irep, struct mrb_state* parent, int paramreg) {
-    7494:	b5f0      	push	{r4, r5, r6, r7, lr}
-    7496:	b097      	sub	sp, #92	; 0x5c
-    7498:	af02      	add	r7, sp, #8
-    749a:	61fb      	str	r3, [r7, #28]
+    74b4:	b5f0      	push	{r4, r5, r6, r7, lr}
+    74b6:	b097      	sub	sp, #92	; 0x5c
+    74b8:	af02      	add	r7, sp, #8
+    74ba:	61fb      	str	r3, [r7, #28]
 	intptr_t reg[nregs - 1]; // no need a reg for management
-    749c:	79cb      	ldrb	r3, [r1, #7]
+    74bc:	79cb      	ldrb	r3, [r1, #7]
 int irep_exec(struct mrb_vm* vm, const uint8_t* irep, struct mrb_state* parent, int paramreg) {
-    749e:	61ba      	str	r2, [r7, #24]
+    74be:	61ba      	str	r2, [r7, #24]
 	intptr_t reg[nregs - 1]; // no need a reg for management
-    74a0:	798a      	ldrb	r2, [r1, #6]
-    74a2:	021b      	lsls	r3, r3, #8
-    74a4:	4313      	orrs	r3, r2
-    74a6:	466a      	mov	r2, sp
-    74a8:	ba5b      	rev16	r3, r3
-    74aa:	b29b      	uxth	r3, r3
-    74ac:	009b      	lsls	r3, r3, #2
-    74ae:	3306      	adds	r3, #6
-    74b0:	08db      	lsrs	r3, r3, #3
-    74b2:	00db      	lsls	r3, r3, #3
-    74b4:	1ad3      	subs	r3, r2, r3
-    74b6:	469d      	mov	sp, r3
+    74c0:	798a      	ldrb	r2, [r1, #6]
+    74c2:	021b      	lsls	r3, r3, #8
+    74c4:	4313      	orrs	r3, r2
+    74c6:	466a      	mov	r2, sp
+    74c8:	ba5b      	rev16	r3, r3
+    74ca:	b29b      	uxth	r3, r3
+    74cc:	009b      	lsls	r3, r3, #2
+    74ce:	3306      	adds	r3, #6
+    74d0:	08db      	lsrs	r3, r3, #3
+    74d2:	00db      	lsls	r3, r3, #3
+    74d4:	1ad3      	subs	r3, r2, r3
+    74d6:	469d      	mov	sp, r3
 		p += 4;
-    74b8:	000b      	movs	r3, r1
-    74ba:	330e      	adds	r3, #14
-    74bc:	627b      	str	r3, [r7, #36]	; 0x24
+    74d8:	000b      	movs	r3, r1
+    74da:	330e      	adds	r3, #14
+    74dc:	627b      	str	r3, [r7, #36]	; 0x24
 		int align = (int)p & 3;
-    74be:	2303      	movs	r3, #3
-    74c0:	6a7a      	ldr	r2, [r7, #36]	; 0x24
+    74de:	2303      	movs	r3, #3
+    74e0:	6a7a      	ldr	r2, [r7, #36]	; 0x24
 int irep_exec(struct mrb_vm* vm, const uint8_t* irep, struct mrb_state* parent, int paramreg) {
-    74c2:	62b8      	str	r0, [r7, #40]	; 0x28
-    74c4:	62f9      	str	r1, [r7, #44]	; 0x2c
+    74e2:	62b8      	str	r0, [r7, #40]	; 0x28
+    74e4:	62f9      	str	r1, [r7, #44]	; 0x2c
 	intptr_t reg[nregs - 1]; // no need a reg for management
-    74c6:	ad02      	add	r5, sp, #8
+    74e6:	ad02      	add	r5, sp, #8
 		int align = (int)p & 3;
-    74c8:	4013      	ands	r3, r2
+    74e8:	4013      	ands	r3, r2
 		if (align) {
-    74ca:	d002      	beq.n	74d2 <irep_exec+0x3e>
+    74ea:	d002      	beq.n	74f2 <irep_exec+0x3e>
 			p += 4 - align;
-    74cc:	1ad3      	subs	r3, r2, r3
-    74ce:	3304      	adds	r3, #4
-    74d0:	627b      	str	r3, [r7, #36]	; 0x24
+    74ec:	1ad3      	subs	r3, r2, r3
+    74ee:	3304      	adds	r3, #4
+    74f0:	627b      	str	r3, [r7, #36]	; 0x24
 	struct mrb_state state = { .parent = parent, .reg = reg };
-    74d2:	69bb      	ldr	r3, [r7, #24]
-    74d4:	63bd      	str	r5, [r7, #56]	; 0x38
-    74d6:	637b      	str	r3, [r7, #52]	; 0x34
+    74f2:	69bb      	ldr	r3, [r7, #24]
+    74f4:	63bd      	str	r5, [r7, #56]	; 0x38
+    74f6:	637b      	str	r3, [r7, #52]	; 0x34
 	reg[0] = paramreg ? parent->reg[paramreg] : MRB_OBJ_OBJECT; // self instance  0 means root object // vm->parentstate ? parentstate->caller : 0;
-    74d8:	69fb      	ldr	r3, [r7, #28]
-    74da:	2101      	movs	r1, #1
-    74dc:	2b00      	cmp	r3, #0
-    74de:	d006      	beq.n	74ee <irep_exec+0x5a>
-    74e0:	69bb      	ldr	r3, [r7, #24]
-    74e2:	685b      	ldr	r3, [r3, #4]
-    74e4:	623b      	str	r3, [r7, #32]
-    74e6:	69fb      	ldr	r3, [r7, #28]
-    74e8:	6a3a      	ldr	r2, [r7, #32]
-    74ea:	009b      	lsls	r3, r3, #2
-    74ec:	5899      	ldr	r1, [r3, r2]
-    74ee:	6029      	str	r1, [r5, #0]
-	intptr_t* tclass = mrb_memory_find(vm, reg[0], "_cls");
-    74f0:	4ab2      	ldr	r2, [pc, #712]	; (77bc <irep_exec+0x328>)
-    74f2:	6ab8      	ldr	r0, [r7, #40]	; 0x28
-    74f4:	f7ff ff00 	bl	72f8 <mrb_memory_find>
     74f8:	69fb      	ldr	r3, [r7, #28]
-    74fa:	6a7c      	ldr	r4, [r7, #36]	; 0x24
-    74fc:	009b      	lsls	r3, r3, #2
-    74fe:	617b      	str	r3, [r7, #20]
-    7500:	1aeb      	subs	r3, r5, r3
-    7502:	60bb      	str	r3, [r7, #8]
+    74fa:	2101      	movs	r1, #1
+    74fc:	2b00      	cmp	r3, #0
+    74fe:	d006      	beq.n	750e <irep_exec+0x5a>
+    7500:	69bb      	ldr	r3, [r7, #24]
+    7502:	685b      	ldr	r3, [r3, #4]
+    7504:	623b      	str	r3, [r7, #32]
+    7506:	69fb      	ldr	r3, [r7, #28]
+    7508:	6a3a      	ldr	r2, [r7, #32]
+    750a:	009b      	lsls	r3, r3, #2
+    750c:	5899      	ldr	r1, [r3, r2]
+    750e:	6029      	str	r1, [r5, #0]
+	intptr_t* tclass = mrb_memory_find(vm, reg[0], "_cls");
+    7510:	4ab2      	ldr	r2, [pc, #712]	; (77dc <irep_exec+0x328>)
+    7512:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    7514:	f7ff fef0 	bl	72f8 <mrb_memory_find>
+    7518:	69fb      	ldr	r3, [r7, #28]
+    751a:	6a7c      	ldr	r4, [r7, #36]	; 0x24
+    751c:	009b      	lsls	r3, r3, #2
+    751e:	617b      	str	r3, [r7, #20]
+    7520:	1aeb      	subs	r3, r5, r3
+    7522:	60bb      	str	r3, [r7, #8]
 	int opext = 0;
-    7504:	2300      	movs	r3, #0
-    7506:	613b      	str	r3, [r7, #16]
+    7524:	2300      	movs	r3, #0
+    7526:	613b      	str	r3, [r7, #16]
 		uint8_t op = *p++;
-    7508:	7823      	ldrb	r3, [r4, #0]
-    750a:	1c66      	adds	r6, r4, #1
+    7528:	7823      	ldrb	r3, [r4, #0]
+    752a:	1c66      	adds	r6, r4, #1
 		switch (op) {
-    750c:	2b67      	cmp	r3, #103	; 0x67
-    750e:	d900      	bls.n	7512 <irep_exec+0x7e>
-    7510:	e1ec      	b.n	78ec <irep_exec+0x458>
-    7512:	0018      	movs	r0, r3
-    7514:	f7ff fd82 	bl	701c <__gnu_thumb1_case_uhi>
-    7518:	0068008a 	.word	0x0068008a
-    751c:	007b0070 	.word	0x007b0070
-    7520:	0091007b 	.word	0x0091007b
-    7524:	00910091 	.word	0x00910091
-    7528:	00910091 	.word	0x00910091
-    752c:	00910091 	.word	0x00910091
-    7530:	00910091 	.word	0x00910091
-    7534:	00a20097 	.word	0x00a20097
-    7538:	00a801e2 	.word	0x00a801e2
-    753c:	01ea00a8 	.word	0x01ea00a8
-    7540:	01ea01ea 	.word	0x01ea01ea
-    7544:	01ea01ea 	.word	0x01ea01ea
-    7548:	01ea01ea 	.word	0x01ea01ea
-    754c:	01ea01ea 	.word	0x01ea01ea
-    7550:	01ea01ea 	.word	0x01ea01ea
-    7554:	00af01ea 	.word	0x00af01ea
-    7558:	00c600af 	.word	0x00c600af
-    755c:	00cf00cf 	.word	0x00cf00cf
+    752c:	2b67      	cmp	r3, #103	; 0x67
+    752e:	d900      	bls.n	7532 <irep_exec+0x7e>
+    7530:	e1ec      	b.n	790c <irep_exec+0x458>
+    7532:	0018      	movs	r0, r3
+    7534:	f7ff fd72 	bl	701c <__gnu_thumb1_case_uhi>
+    7538:	0068008a 	.word	0x0068008a
+    753c:	007b0070 	.word	0x007b0070
+    7540:	0091007b 	.word	0x0091007b
+    7544:	00910091 	.word	0x00910091
+    7548:	00910091 	.word	0x00910091
+    754c:	00910091 	.word	0x00910091
+    7550:	00910091 	.word	0x00910091
+    7554:	00a20097 	.word	0x00a20097
+    7558:	00a801e2 	.word	0x00a801e2
+    755c:	01ea00a8 	.word	0x01ea00a8
     7560:	01ea01ea 	.word	0x01ea01ea
     7564:	01ea01ea 	.word	0x01ea01ea
     7568:	01ea01ea 	.word	0x01ea01ea
     756c:	01ea01ea 	.word	0x01ea01ea
     7570:	01ea01ea 	.word	0x01ea01ea
-    7574:	010400e0 	.word	0x010400e0
-    7578:	01ea01ea 	.word	0x01ea01ea
-    757c:	013901ea 	.word	0x013901ea
+    7574:	00af01ea 	.word	0x00af01ea
+    7578:	00c600af 	.word	0x00c600af
+    757c:	00cf00cf 	.word	0x00cf00cf
     7580:	01ea01ea 	.word	0x01ea01ea
-    7584:	015601ea 	.word	0x015601ea
-    7588:	01560156 	.word	0x01560156
-    758c:	015c01ea 	.word	0x015c01ea
-    7590:	016c0165 	.word	0x016c0165
-    7594:	017c0174 	.word	0x017c0174
-    7598:	018d0184 	.word	0x018d0184
-    759c:	01a40199 	.word	0x01a40199
-    75a0:	01ba01af 	.word	0x01ba01af
-    75a4:	01ea01ea 	.word	0x01ea01ea
-    75a8:	01ea01ea 	.word	0x01ea01ea
-    75ac:	01ea01ea 	.word	0x01ea01ea
-    75b0:	01ea01ea 	.word	0x01ea01ea
-    75b4:	01c501ea 	.word	0x01c501ea
-    75b8:	01ea01c9 	.word	0x01ea01c9
-    75bc:	01ea01ea 	.word	0x01ea01ea
-    75c0:	01cb01ea 	.word	0x01cb01ea
-    75c4:	01ea01cb 	.word	0x01ea01cb
+    7584:	01ea01ea 	.word	0x01ea01ea
+    7588:	01ea01ea 	.word	0x01ea01ea
+    758c:	01ea01ea 	.word	0x01ea01ea
+    7590:	01ea01ea 	.word	0x01ea01ea
+    7594:	010400e0 	.word	0x010400e0
+    7598:	01ea01ea 	.word	0x01ea01ea
+    759c:	013901ea 	.word	0x013901ea
+    75a0:	01ea01ea 	.word	0x01ea01ea
+    75a4:	015601ea 	.word	0x015601ea
+    75a8:	01560156 	.word	0x01560156
+    75ac:	015c01ea 	.word	0x015c01ea
+    75b0:	016c0165 	.word	0x016c0165
+    75b4:	017c0174 	.word	0x017c0174
+    75b8:	018d0184 	.word	0x018d0184
+    75bc:	01a40199 	.word	0x01a40199
+    75c0:	01ba01af 	.word	0x01ba01af
+    75c4:	01ea01ea 	.word	0x01ea01ea
     75c8:	01ea01ea 	.word	0x01ea01ea
     75cc:	01ea01ea 	.word	0x01ea01ea
-    75d0:	01d201ea 	.word	0x01d201ea
-    75d4:	01ea01ea 	.word	0x01ea01ea
-    75d8:	01e201ea 	.word	0x01e201ea
+    75d0:	01ea01ea 	.word	0x01ea01ea
+    75d4:	01c501ea 	.word	0x01c501ea
+    75d8:	01ea01c9 	.word	0x01ea01c9
     75dc:	01ea01ea 	.word	0x01ea01ea
-    75e0:	01e701e7 	.word	0x01e701e7
-    75e4:	01ec01e7 	.word	0x01ec01e7
+    75e0:	01cb01ea 	.word	0x01cb01ea
+    75e4:	01ea01cb 	.word	0x01ea01cb
+    75e8:	01ea01ea 	.word	0x01ea01ea
+    75ec:	01ea01ea 	.word	0x01ea01ea
+    75f0:	01d201ea 	.word	0x01d201ea
+    75f4:	01ea01ea 	.word	0x01ea01ea
+    75f8:	01e201ea 	.word	0x01e201ea
+    75fc:	01ea01ea 	.word	0x01ea01ea
+    7600:	01e701e7 	.word	0x01e701e7
+    7604:	01ec01e7 	.word	0x01ec01e7
 				a = *p++; b = *p++;
-    75e8:	78a3      	ldrb	r3, [r4, #2]
-    75ea:	1ce6      	adds	r6, r4, #3
+    7608:	78a3      	ldrb	r3, [r4, #2]
+    760a:	1ce6      	adds	r6, r4, #3
 				reg[a] = reg[b];
-    75ec:	009b      	lsls	r3, r3, #2
-    75ee:	595a      	ldr	r2, [r3, r5]
+    760c:	009b      	lsls	r3, r3, #2
+    760e:	595a      	ldr	r2, [r3, r5]
 				a = *p++; b = *p++;
-    75f0:	7863      	ldrb	r3, [r4, #1]
+    7610:	7863      	ldrb	r3, [r4, #1]
 				reg[a] = reg[b];
-    75f2:	009b      	lsls	r3, r3, #2
+    7612:	009b      	lsls	r3, r3, #2
 				reg[a] = MRB_NIL;
-    75f4:	515a      	str	r2, [r3, r5]
+    7614:	515a      	str	r2, [r3, r5]
 				break;
-    75f6:	e019      	b.n	762c <irep_exec+0x198>
+    7616:	e019      	b.n	764c <irep_exec+0x198>
 				a = *p++; b = *p++;
-    75f8:	78a2      	ldrb	r2, [r4, #2]
+    7618:	78a2      	ldrb	r2, [r4, #2]
 				reg[a] = irep_atol((const char*)(irep_get(irep, IREP_TYPE_LITERAL, b) + 3));
-    75fa:	2101      	movs	r1, #1
-    75fc:	6af8      	ldr	r0, [r7, #44]	; 0x2c
-    75fe:	f7ff fe03 	bl	7208 <irep_get>
-    7602:	3003      	adds	r0, #3
+    761a:	2101      	movs	r1, #1
+    761c:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+    761e:	f7ff fdf3 	bl	7208 <irep_get>
+    7622:	3003      	adds	r0, #3
 				a = *p++; b = *p++;
-    7604:	1ce6      	adds	r6, r4, #3
+    7624:	1ce6      	adds	r6, r4, #3
 				reg[a] = irep_atol((const char*)(irep_get(irep, IREP_TYPE_LITERAL, b) + 3));
-    7606:	f7ff fe54 	bl	72b2 <irep_atol>
+    7626:	f7ff fe44 	bl	72b2 <irep_atol>
 				a = *p++; b = *p++;
-    760a:	7863      	ldrb	r3, [r4, #1]
-    760c:	e07d      	b.n	770a <irep_exec+0x276>
+    762a:	7863      	ldrb	r3, [r4, #1]
+    762c:	e07d      	b.n	772a <irep_exec+0x276>
 				if (opext == 2)
-    760e:	6938      	ldr	r0, [r7, #16]
+    762e:	6938      	ldr	r0, [r7, #16]
 				a = *p++; b = *p++;
-    7610:	7861      	ldrb	r1, [r4, #1]
-    7612:	78a2      	ldrb	r2, [r4, #2]
-    7614:	1ce6      	adds	r6, r4, #3
+    7630:	7861      	ldrb	r1, [r4, #1]
+    7632:	78a2      	ldrb	r2, [r4, #2]
+    7634:	1ce6      	adds	r6, r4, #3
 				if (opext == 2)
-    7616:	2802      	cmp	r0, #2
-    7618:	d103      	bne.n	7622 <irep_exec+0x18e>
+    7636:	2802      	cmp	r0, #2
+    7638:	d103      	bne.n	7642 <irep_exec+0x18e>
 					b = (b << 8) + *p++;
-    761a:	78e0      	ldrb	r0, [r4, #3]
-    761c:	0212      	lsls	r2, r2, #8
-    761e:	1d26      	adds	r6, r4, #4
-    7620:	1882      	adds	r2, r0, r2
+    763a:	78e0      	ldrb	r0, [r4, #3]
+    763c:	0212      	lsls	r2, r2, #8
+    763e:	1d26      	adds	r6, r4, #4
+    7640:	1882      	adds	r2, r0, r2
 				if (op == OP_LOADINEG)
-    7622:	2b04      	cmp	r3, #4
-    7624:	d100      	bne.n	7628 <irep_exec+0x194>
+    7642:	2b04      	cmp	r3, #4
+    7644:	d100      	bne.n	7648 <irep_exec+0x194>
 					b = -b;
-    7626:	4252      	negs	r2, r2
+    7646:	4252      	negs	r2, r2
 				reg[a] = b;
-    7628:	0089      	lsls	r1, r1, #2
-    762a:	514a      	str	r2, [r1, r5]
+    7648:	0089      	lsls	r1, r1, #2
+    764a:	514a      	str	r2, [r1, r5]
 		if (vm->err) {
-    762c:	6abb      	ldr	r3, [r7, #40]	; 0x28
-    762e:	6818      	ldr	r0, [r3, #0]
-    7630:	2800      	cmp	r0, #0
-    7632:	d000      	beq.n	7636 <irep_exec+0x1a2>
-    7634:	e0c9      	b.n	77ca <irep_exec+0x336>
-    7636:	0034      	movs	r4, r6
-    7638:	e766      	b.n	7508 <irep_exec+0x74>
+    764c:	6abb      	ldr	r3, [r7, #40]	; 0x28
+    764e:	6818      	ldr	r0, [r3, #0]
+    7650:	2800      	cmp	r0, #0
+    7652:	d000      	beq.n	7656 <irep_exec+0x1a2>
+    7654:	e0c9      	b.n	77ea <irep_exec+0x336>
+    7656:	0034      	movs	r4, r6
+    7658:	e766      	b.n	7528 <irep_exec+0x74>
 				a = *p++;
-    763a:	7862      	ldrb	r2, [r4, #1]
-    763c:	1ca6      	adds	r6, r4, #2
+    765a:	7862      	ldrb	r2, [r4, #1]
+    765c:	1ca6      	adds	r6, r4, #2
 				reg[a] = op - OP_LOADI_0;
-    763e:	0092      	lsls	r2, r2, #2
-    7640:	3b06      	subs	r3, #6
+    765e:	0092      	lsls	r2, r2, #2
+    7660:	3b06      	subs	r3, #6
 					reg[a] = s->reg[b];
-    7642:	50ab      	str	r3, [r5, r2]
-    7644:	e7f2      	b.n	762c <irep_exec+0x198>
+    7662:	50ab      	str	r3, [r5, r2]
+    7664:	e7f2      	b.n	764c <irep_exec+0x198>
 				reg[a] = (intptr_t)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    7646:	2102      	movs	r1, #2
+    7666:	2102      	movs	r1, #2
 				a = *p++; b = *p++;
-    7648:	78a2      	ldrb	r2, [r4, #2]
-    764a:	1ce6      	adds	r6, r4, #3
+    7668:	78a2      	ldrb	r2, [r4, #2]
+    766a:	1ce6      	adds	r6, r4, #3
 				reg[a] = (intptr_t)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    764c:	6af8      	ldr	r0, [r7, #44]	; 0x2c
-    764e:	f7ff fddb 	bl	7208 <irep_get>
+    766c:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+    766e:	f7ff fdcb 	bl	7208 <irep_get>
 				a = *p++; b = *p++;
-    7652:	7863      	ldrb	r3, [r4, #1]
+    7672:	7863      	ldrb	r3, [r4, #1]
 				reg[a] = (intptr_t)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    7654:	3002      	adds	r0, #2
-    7656:	009b      	lsls	r3, r3, #2
-    7658:	5158      	str	r0, [r3, r5]
+    7674:	3002      	adds	r0, #2
+    7676:	009b      	lsls	r3, r3, #2
+    7678:	5158      	str	r0, [r3, r5]
 				break;
-    765a:	e7e7      	b.n	762c <irep_exec+0x198>
+    767a:	e7e7      	b.n	764c <irep_exec+0x198>
 				reg[a] = MRB_NIL;
-    765c:	2280      	movs	r2, #128	; 0x80
+    767c:	2280      	movs	r2, #128	; 0x80
 				a = *p++;
-    765e:	7863      	ldrb	r3, [r4, #1]
-    7660:	1ca6      	adds	r6, r4, #2
+    767e:	7863      	ldrb	r3, [r4, #1]
+    7680:	1ca6      	adds	r6, r4, #2
 				reg[a] = MRB_NIL;
-    7662:	009b      	lsls	r3, r3, #2
-    7664:	0612      	lsls	r2, r2, #24
-    7666:	e7c5      	b.n	75f4 <irep_exec+0x160>
+    7682:	009b      	lsls	r3, r3, #2
+    7684:	0612      	lsls	r2, r2, #24
+    7686:	e7c5      	b.n	7614 <irep_exec+0x160>
 				a = *p++;
-    7668:	7862      	ldrb	r2, [r4, #1]
+    7688:	7862      	ldrb	r2, [r4, #1]
 				reg[a] = op == OP_LOADT;
-    766a:	3b11      	subs	r3, #17
+    768a:	3b11      	subs	r3, #17
 				a = *p++;
-    766c:	1ca6      	adds	r6, r4, #2
+    768c:	1ca6      	adds	r6, r4, #2
 				reg[a] = op == OP_LOADT;
-    766e:	0092      	lsls	r2, r2, #2
-    7670:	4259      	negs	r1, r3
-    7672:	414b      	adcs	r3, r1
-    7674:	e7e5      	b.n	7642 <irep_exec+0x1ae>
+    768e:	0092      	lsls	r2, r2, #2
+    7690:	4259      	negs	r1, r3
+    7692:	414b      	adcs	r3, r1
+    7694:	e7e5      	b.n	7662 <irep_exec+0x1ae>
 				a = *p++; b = *p++; c = *p++;
-    7676:	78e0      	ldrb	r0, [r4, #3]
-    7678:	7862      	ldrb	r2, [r4, #1]
-    767a:	78a1      	ldrb	r1, [r4, #2]
-    767c:	1d26      	adds	r6, r4, #4
+    7696:	78e0      	ldrb	r0, [r4, #3]
+    7698:	7862      	ldrb	r2, [r4, #1]
+    769a:	78a1      	ldrb	r1, [r4, #2]
+    769c:	1d26      	adds	r6, r4, #4
 				for (int iu = 0; iu < c; iu++) {
-    767e:	2400      	movs	r4, #0
+    769e:	2400      	movs	r4, #0
 				a = *p++; b = *p++; c = *p++;
-    7680:	4684      	mov	ip, r0
+    76a0:	4684      	mov	ip, r0
 				struct mrb_state* s = state.parent;
-    7682:	6b78      	ldr	r0, [r7, #52]	; 0x34
+    76a2:	6b78      	ldr	r0, [r7, #52]	; 0x34
 				for (int iu = 0; iu < c; iu++) {
-    7684:	4564      	cmp	r4, ip
-    7686:	db07      	blt.n	7698 <irep_exec+0x204>
-    7688:	008c      	lsls	r4, r1, #2
-    768a:	6841      	ldr	r1, [r0, #4]
-    768c:	0092      	lsls	r2, r2, #2
-    768e:	1909      	adds	r1, r1, r4
+    76a4:	4564      	cmp	r4, ip
+    76a6:	db07      	blt.n	76b8 <irep_exec+0x204>
+    76a8:	008c      	lsls	r4, r1, #2
+    76aa:	6841      	ldr	r1, [r0, #4]
+    76ac:	0092      	lsls	r2, r2, #2
+    76ae:	1909      	adds	r1, r1, r4
 				if (op == OP_GETUPVAR) {
-    7690:	2b1f      	cmp	r3, #31
-    7692:	d104      	bne.n	769e <irep_exec+0x20a>
+    76b0:	2b1f      	cmp	r3, #31
+    76b2:	d104      	bne.n	76be <irep_exec+0x20a>
 					reg[a] = s->reg[b];
-    7694:	680b      	ldr	r3, [r1, #0]
-    7696:	e7d4      	b.n	7642 <irep_exec+0x1ae>
+    76b4:	680b      	ldr	r3, [r1, #0]
+    76b6:	e7d4      	b.n	7662 <irep_exec+0x1ae>
 					s = s->parent;
-    7698:	6800      	ldr	r0, [r0, #0]
+    76b8:	6800      	ldr	r0, [r0, #0]
 				for (int iu = 0; iu < c; iu++) {
-    769a:	3401      	adds	r4, #1
-    769c:	e7f2      	b.n	7684 <irep_exec+0x1f0>
+    76ba:	3401      	adds	r4, #1
+    76bc:	e7f2      	b.n	76a4 <irep_exec+0x1f0>
 					s->reg[b] = reg[a];
-    769e:	58ab      	ldr	r3, [r5, r2]
-    76a0:	600b      	str	r3, [r1, #0]
-    76a2:	e7c3      	b.n	762c <irep_exec+0x198>
+    76be:	58ab      	ldr	r3, [r5, r2]
+    76c0:	600b      	str	r3, [r1, #0]
+    76c2:	e7c3      	b.n	764c <irep_exec+0x198>
 				p = porg + a;
-    76a4:	7832      	ldrb	r2, [r6, #0]
-    76a6:	7873      	ldrb	r3, [r6, #1]
+    76c4:	7832      	ldrb	r2, [r6, #0]
+    76c6:	7873      	ldrb	r3, [r6, #1]
 					p = porg + b;
-    76a8:	021b      	lsls	r3, r3, #8
-    76aa:	4313      	orrs	r3, r2
-    76ac:	ba5b      	rev16	r3, r3
-    76ae:	b29e      	uxth	r6, r3
-    76b0:	6a7b      	ldr	r3, [r7, #36]	; 0x24
-    76b2:	199e      	adds	r6, r3, r6
-    76b4:	e7ba      	b.n	762c <irep_exec+0x198>
+    76c8:	021b      	lsls	r3, r3, #8
+    76ca:	4313      	orrs	r3, r2
+    76cc:	ba5b      	rev16	r3, r3
+    76ce:	b29e      	uxth	r6, r3
+    76d0:	6a7b      	ldr	r3, [r7, #36]	; 0x24
+    76d2:	199e      	adds	r6, r3, r6
+    76d4:	e7ba      	b.n	764c <irep_exec+0x198>
 				if ((op == OP_JMPIF) == (reg[a] != MRB_NIL)) {
-    76b6:	2180      	movs	r1, #128	; 0x80
-    76b8:	3b22      	subs	r3, #34	; 0x22
-    76ba:	1e5a      	subs	r2, r3, #1
-    76bc:	4193      	sbcs	r3, r2
+    76d6:	2180      	movs	r1, #128	; 0x80
+    76d8:	3b22      	subs	r3, #34	; 0x22
+    76da:	1e5a      	subs	r2, r3, #1
+    76dc:	4193      	sbcs	r3, r2
 				a = *p++; b = *p++; b = (b << 8) | *p++;
-    76be:	7862      	ldrb	r2, [r4, #1]
+    76de:	7862      	ldrb	r2, [r4, #1]
 				if ((op == OP_JMPIF) == (reg[a] != MRB_NIL)) {
-    76c0:	0609      	lsls	r1, r1, #24
-    76c2:	0092      	lsls	r2, r2, #2
-    76c4:	5952      	ldr	r2, [r2, r5]
+    76e0:	0609      	lsls	r1, r1, #24
+    76e2:	0092      	lsls	r2, r2, #2
+    76e4:	5952      	ldr	r2, [r2, r5]
 				a = *p++; b = *p++; b = (b << 8) | *p++;
-    76c6:	1d26      	adds	r6, r4, #4
+    76e6:	1d26      	adds	r6, r4, #4
 				if ((op == OP_JMPIF) == (reg[a] != MRB_NIL)) {
-    76c8:	1852      	adds	r2, r2, r1
-    76ca:	1e51      	subs	r1, r2, #1
-    76cc:	418a      	sbcs	r2, r1
-    76ce:	4293      	cmp	r3, r2
-    76d0:	d0ac      	beq.n	762c <irep_exec+0x198>
+    76e8:	1852      	adds	r2, r2, r1
+    76ea:	1e51      	subs	r1, r2, #1
+    76ec:	418a      	sbcs	r2, r1
+    76ee:	4293      	cmp	r3, r2
+    76f0:	d0ac      	beq.n	764c <irep_exec+0x198>
 					p = porg + b;
-    76d2:	78a2      	ldrb	r2, [r4, #2]
-    76d4:	78e3      	ldrb	r3, [r4, #3]
-    76d6:	e7e7      	b.n	76a8 <irep_exec+0x214>
+    76f2:	78a2      	ldrb	r2, [r4, #2]
+    76f4:	78e3      	ldrb	r3, [r4, #3]
+    76f6:	e7e7      	b.n	76c8 <irep_exec+0x214>
 				a = *p++; b = *p++; c = *p++;
-    76d8:	7863      	ldrb	r3, [r4, #1]
-    76da:	78a2      	ldrb	r2, [r4, #2]
+    76f8:	7863      	ldrb	r3, [r4, #1]
+    76fa:	78a2      	ldrb	r2, [r4, #2]
 				const char* func = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    76dc:	2102      	movs	r1, #2
-    76de:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+    76fc:	2102      	movs	r1, #2
+    76fe:	6af8      	ldr	r0, [r7, #44]	; 0x2c
 				a = *p++; b = *p++; c = *p++;
-    76e0:	623b      	str	r3, [r7, #32]
+    7700:	623b      	str	r3, [r7, #32]
 				const char* func = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    76e2:	f7ff fd91 	bl	7208 <irep_get>
-    76e6:	1c83      	adds	r3, r0, #2
+    7702:	f7ff fd81 	bl	7208 <irep_get>
+    7706:	1c83      	adds	r3, r0, #2
 				intptr_t* send2 = mrb_memory_find(vm, MRB_OBJ_OBJECT, func);
-    76e8:	001a      	movs	r2, r3
-    76ea:	2101      	movs	r1, #1
-    76ec:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    7708:	001a      	movs	r2, r3
+    770a:	2101      	movs	r1, #1
+    770c:	6ab8      	ldr	r0, [r7, #40]	; 0x28
 				a = *p++; b = *p++; c = *p++;
-    76ee:	1d26      	adds	r6, r4, #4
+    770e:	1d26      	adds	r6, r4, #4
 				const char* func = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    76f0:	60fb      	str	r3, [r7, #12]
+    7710:	60fb      	str	r3, [r7, #12]
 				intptr_t* send2 = mrb_memory_find(vm, MRB_OBJ_OBJECT, func);
-    76f2:	f7ff fe01 	bl	72f8 <mrb_memory_find>
+    7712:	f7ff fdf1 	bl	72f8 <mrb_memory_find>
 				if (send2) {
-    76f6:	2800      	cmp	r0, #0
-    76f8:	d009      	beq.n	770e <irep_exec+0x27a>
+    7716:	2800      	cmp	r0, #0
+    7718:	d009      	beq.n	772e <irep_exec+0x27a>
 					reg[a] = irep_exec(vm, (const uint8_t*)send2[2], &state, a);
-    76fa:	2234      	movs	r2, #52	; 0x34
-    76fc:	6a3b      	ldr	r3, [r7, #32]
-    76fe:	6881      	ldr	r1, [r0, #8]
-    7700:	18ba      	adds	r2, r7, r2
-    7702:	6ab8      	ldr	r0, [r7, #40]	; 0x28
-    7704:	f7ff fec6 	bl	7494 <irep_exec>
-    7708:	6a3b      	ldr	r3, [r7, #32]
+    771a:	2234      	movs	r2, #52	; 0x34
+    771c:	6a3b      	ldr	r3, [r7, #32]
+    771e:	6881      	ldr	r1, [r0, #8]
+    7720:	18ba      	adds	r2, r7, r2
+    7722:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    7724:	f7ff fec6 	bl	74b4 <irep_exec>
+    7728:	6a3b      	ldr	r3, [r7, #32]
 				reg[a] = (intptr_t)irep_get(irep, IREP_TYPE_IREP, b);
-    770a:	009b      	lsls	r3, r3, #2
-    770c:	e7a4      	b.n	7658 <irep_exec+0x1c4>
+    772a:	009b      	lsls	r3, r3, #2
+    772c:	e7a4      	b.n	7678 <irep_exec+0x1c4>
 				a = *p++; b = *p++; c = *p++;
-    770e:	78e3      	ldrb	r3, [r4, #3]
+    772e:	78e3      	ldrb	r3, [r4, #3]
 				emb_method(vm, func, reg, a, c);
-    7710:	002a      	movs	r2, r5
+    7730:	002a      	movs	r2, r5
 				a = *p++; b = *p++; c = *p++;
-    7712:	9300      	str	r3, [sp, #0]
+    7732:	9300      	str	r3, [sp, #0]
 				emb_method(vm, func, reg, a, c);
-    7714:	6a3b      	ldr	r3, [r7, #32]
-    7716:	68f9      	ldr	r1, [r7, #12]
-    7718:	6ab8      	ldr	r0, [r7, #40]	; 0x28
-    771a:	f7ff fe29 	bl	7370 <emb_method>
+    7734:	6a3b      	ldr	r3, [r7, #32]
+    7736:	68f9      	ldr	r1, [r7, #12]
+    7738:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    773a:	f7ff fe19 	bl	7370 <emb_method>
 				break;
-    771e:	e785      	b.n	762c <irep_exec+0x198>
+    773e:	e785      	b.n	764c <irep_exec+0x198>
 				const char* funcb = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    7720:	2102      	movs	r1, #2
+    7740:	2102      	movs	r1, #2
 				a = *p++; b = *p++; c = *p++;
-    7722:	78a2      	ldrb	r2, [r4, #2]
+    7742:	78a2      	ldrb	r2, [r4, #2]
 				const char* funcb = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    7724:	6af8      	ldr	r0, [r7, #44]	; 0x2c
-    7726:	f7ff fd6f 	bl	7208 <irep_get>
+    7744:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+    7746:	f7ff fd5f 	bl	7208 <irep_get>
 				if (mrb_strcmp(funcb, "times") == 0) {
-    772a:	4925      	ldr	r1, [pc, #148]	; (77c0 <irep_exec+0x32c>)
+    774a:	4925      	ldr	r1, [pc, #148]	; (77e0 <irep_exec+0x32c>)
 				const char* funcb = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    772c:	3002      	adds	r0, #2
+    774c:	3002      	adds	r0, #2
 				a = *p++; b = *p++; c = *p++;
-    772e:	1d26      	adds	r6, r4, #4
+    774e:	1d26      	adds	r6, r4, #4
 				if (mrb_strcmp(funcb, "times") == 0) {
-    7730:	f7ff fdd7 	bl	72e2 <mrb_strcmp>
-    7734:	2800      	cmp	r0, #0
-    7736:	d000      	beq.n	773a <irep_exec+0x2a6>
-    7738:	e778      	b.n	762c <irep_exec+0x198>
-    773a:	7864      	ldrb	r4, [r4, #1]
+    7750:	f7ff fdc7 	bl	72e2 <mrb_strcmp>
+    7754:	2800      	cmp	r0, #0
+    7756:	d000      	beq.n	775a <irep_exec+0x2a6>
+    7758:	e778      	b.n	764c <irep_exec+0x198>
+    775a:	7864      	ldrb	r4, [r4, #1]
 	struct mrb_state state = { .parent = parent, .reg = reg };
-    773c:	2230      	movs	r2, #48	; 0x30
-    773e:	00a4      	lsls	r4, r4, #2
-    7740:	192c      	adds	r4, r5, r4
+    775c:	2230      	movs	r2, #48	; 0x30
+    775e:	00a4      	lsls	r4, r4, #2
+    7760:	192c      	adds	r4, r5, r4
 					reg[a] = num_times(vm, reg[a], (const uint8_t*)reg[a + 1], &state);
-    7742:	6823      	ldr	r3, [r4, #0]
+    7762:	6823      	ldr	r3, [r4, #0]
 	struct mrb_state state = { .parent = parent, .reg = reg };
-    7744:	18ba      	adds	r2, r7, r2
+    7764:	18ba      	adds	r2, r7, r2
 					reg[a] = num_times(vm, reg[a], (const uint8_t*)reg[a + 1], &state);
-    7746:	60fb      	str	r3, [r7, #12]
-    7748:	6863      	ldr	r3, [r4, #4]
+    7766:	60fb      	str	r3, [r7, #12]
+    7768:	6863      	ldr	r3, [r4, #4]
 	for (int i = 0; i < n; i++) {
-    774a:	6238      	str	r0, [r7, #32]
+    776a:	6238      	str	r0, [r7, #32]
 					reg[a] = num_times(vm, reg[a], (const uint8_t*)reg[a + 1], &state);
-    774c:	607b      	str	r3, [r7, #4]
+    776c:	607b      	str	r3, [r7, #4]
 	struct mrb_state state = { .parent = parent, .reg = reg };
-    774e:	2334      	movs	r3, #52	; 0x34
-    7750:	18fb      	adds	r3, r7, r3
-    7752:	63fb      	str	r3, [r7, #60]	; 0x3c
-    7754:	2314      	movs	r3, #20
-    7756:	18d3      	adds	r3, r2, r3
-    7758:	643b      	str	r3, [r7, #64]	; 0x40
+    776e:	2334      	movs	r3, #52	; 0x34
+    7770:	18fb      	adds	r3, r7, r3
+    7772:	63fb      	str	r3, [r7, #60]	; 0x3c
+    7774:	2314      	movs	r3, #20
+    7776:	18d3      	adds	r3, r2, r3
+    7778:	643b      	str	r3, [r7, #64]	; 0x40
 	reg[0] = MRB_NIL;
-    775a:	2380      	movs	r3, #128	; 0x80
-    775c:	061b      	lsls	r3, r3, #24
-    775e:	647b      	str	r3, [r7, #68]	; 0x44
+    777a:	2380      	movs	r3, #128	; 0x80
+    777c:	061b      	lsls	r3, r3, #24
+    777e:	647b      	str	r3, [r7, #68]	; 0x44
 	for (int i = 0; i < n; i++) {
-    7760:	68fb      	ldr	r3, [r7, #12]
-    7762:	6a3a      	ldr	r2, [r7, #32]
-    7764:	4293      	cmp	r3, r2
-    7766:	dc01      	bgt.n	776c <irep_exec+0x2d8>
+    7780:	68fb      	ldr	r3, [r7, #12]
+    7782:	6a3a      	ldr	r2, [r7, #32]
+    7784:	4293      	cmp	r3, r2
+    7786:	dc01      	bgt.n	778c <irep_exec+0x2d8>
 				reg[a] /= reg[a + 1];
-    7768:	6020      	str	r0, [r4, #0]
+    7788:	6020      	str	r0, [r4, #0]
 				break;
-    776a:	e75f      	b.n	762c <irep_exec+0x198>
+    778a:	e75f      	b.n	764c <irep_exec+0x198>
 		ret = irep_exec(vm, irep, &state, 1);
-    776c:	2130      	movs	r1, #48	; 0x30
-    776e:	220c      	movs	r2, #12
+    778c:	2130      	movs	r1, #48	; 0x30
+    778e:	220c      	movs	r2, #12
 		reg[1] = i;
-    7770:	6a3b      	ldr	r3, [r7, #32]
+    7790:	6a3b      	ldr	r3, [r7, #32]
 		ret = irep_exec(vm, irep, &state, 1);
-    7772:	1879      	adds	r1, r7, r1
+    7792:	1879      	adds	r1, r7, r1
 		reg[1] = i;
-    7774:	64bb      	str	r3, [r7, #72]	; 0x48
+    7794:	64bb      	str	r3, [r7, #72]	; 0x48
 		ret = irep_exec(vm, irep, &state, 1);
-    7776:	188a      	adds	r2, r1, r2
-    7778:	2301      	movs	r3, #1
-    777a:	6879      	ldr	r1, [r7, #4]
-    777c:	6ab8      	ldr	r0, [r7, #40]	; 0x28
-    777e:	f7ff fe89 	bl	7494 <irep_exec>
+    7796:	188a      	adds	r2, r1, r2
+    7798:	2301      	movs	r3, #1
+    779a:	6879      	ldr	r1, [r7, #4]
+    779c:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    779e:	f7ff fe89 	bl	74b4 <irep_exec>
 	for (int i = 0; i < n; i++) {
-    7782:	6a3b      	ldr	r3, [r7, #32]
-    7784:	3301      	adds	r3, #1
-    7786:	623b      	str	r3, [r7, #32]
-    7788:	e7ea      	b.n	7760 <irep_exec+0x2cc>
+    77a2:	6a3b      	ldr	r3, [r7, #32]
+    77a4:	3301      	adds	r3, #1
+    77a6:	623b      	str	r3, [r7, #32]
+    77a8:	e7ea      	b.n	7780 <irep_exec+0x2cc>
 				a = *p++; a = (a << 8) | *p++; a = (a << 8) | *p++;
-    778a:	7873      	ldrb	r3, [r6, #1]
-    778c:	7832      	ldrb	r2, [r6, #0]
-    778e:	021b      	lsls	r3, r3, #8
-    7790:	4313      	orrs	r3, r2
-    7792:	ba5b      	rev16	r3, r3
-    7794:	69fa      	ldr	r2, [r7, #28]
-    7796:	b29b      	uxth	r3, r3
-    7798:	3201      	adds	r2, #1
+    77aa:	7873      	ldrb	r3, [r6, #1]
+    77ac:	7832      	ldrb	r2, [r6, #0]
+    77ae:	021b      	lsls	r3, r3, #8
+    77b0:	4313      	orrs	r3, r2
+    77b2:	ba5b      	rev16	r3, r3
+    77b4:	69fa      	ldr	r2, [r7, #28]
+    77b6:	b29b      	uxth	r3, r3
+    77b8:	3201      	adds	r2, #1
 				int nparam = a >> 18; // no checks now
-    779a:	0a9b      	lsrs	r3, r3, #10
-    779c:	189b      	adds	r3, r3, r2
+    77ba:	0a9b      	lsrs	r3, r3, #10
+    77bc:	189b      	adds	r3, r3, r2
 				for (int i = 0; i < nparam; i++) {
-    779e:	697a      	ldr	r2, [r7, #20]
+    77be:	697a      	ldr	r2, [r7, #20]
 				a = *p++; a = (a << 8) | *p++; a = (a << 8) | *p++;
-    77a0:	1d26      	adds	r6, r4, #4
-    77a2:	009b      	lsls	r3, r3, #2
-    77a4:	3204      	adds	r2, #4
+    77c0:	1d26      	adds	r6, r4, #4
+    77c2:	009b      	lsls	r3, r3, #2
+    77c4:	3204      	adds	r2, #4
 				for (int i = 0; i < nparam; i++) {
-    77a6:	4293      	cmp	r3, r2
-    77a8:	d100      	bne.n	77ac <irep_exec+0x318>
-    77aa:	e73f      	b.n	762c <irep_exec+0x198>
+    77c6:	4293      	cmp	r3, r2
+    77c8:	d100      	bne.n	77cc <irep_exec+0x318>
+    77ca:	e73f      	b.n	764c <irep_exec+0x198>
 					reg[i + 1] = parent->reg[i + 1 + paramreg];
-    77ac:	69b9      	ldr	r1, [r7, #24]
-    77ae:	6849      	ldr	r1, [r1, #4]
-    77b0:	5889      	ldr	r1, [r1, r2]
-    77b2:	6239      	str	r1, [r7, #32]
-    77b4:	6a38      	ldr	r0, [r7, #32]
-    77b6:	68b9      	ldr	r1, [r7, #8]
-    77b8:	5088      	str	r0, [r1, r2]
-    77ba:	e7f3      	b.n	77a4 <irep_exec+0x310>
-    77bc:	00007919 	.word	0x00007919
-    77c0:	0000791e 	.word	0x0000791e
+    77cc:	69b9      	ldr	r1, [r7, #24]
+    77ce:	6849      	ldr	r1, [r1, #4]
+    77d0:	5889      	ldr	r1, [r1, r2]
+    77d2:	6239      	str	r1, [r7, #32]
+    77d4:	6a38      	ldr	r0, [r7, #32]
+    77d6:	68b9      	ldr	r1, [r7, #8]
+    77d8:	5088      	str	r0, [r1, r2]
+    77da:	e7f3      	b.n	77c4 <irep_exec+0x310>
+    77dc:	0000793d 	.word	0x0000793d
+    77e0:	00007942 	.word	0x00007942
 				a = *p++;
-    77c4:	7863      	ldrb	r3, [r4, #1]
+    77e4:	7863      	ldrb	r3, [r4, #1]
 				return reg[a];
-    77c6:	009b      	lsls	r3, r3, #2
-    77c8:	5958      	ldr	r0, [r3, r5]
-}
-    77ca:	46bd      	mov	sp, r7
-    77cc:	b015      	add	sp, #84	; 0x54
-    77ce:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    77d0:	7863      	ldrb	r3, [r4, #1]
-				a = *p++;
-    77d2:	1ca6      	adds	r6, r4, #2
-    77d4:	009b      	lsls	r3, r3, #2
-    77d6:	18eb      	adds	r3, r5, r3
-				reg[a] += reg[a + 1];
-    77d8:	681a      	ldr	r2, [r3, #0]
-    77da:	6859      	ldr	r1, [r3, #4]
-				reg[a] += b;
-    77dc:	188a      	adds	r2, r1, r2
-				vm->err = MRB_ERR_UNSUPPORTED_OPCODE;
-    77de:	601a      	str	r2, [r3, #0]
-				break;
-    77e0:	e724      	b.n	762c <irep_exec+0x198>
-    77e2:	7863      	ldrb	r3, [r4, #1]
-				a = *p++; b = *p++;
-    77e4:	1ce6      	adds	r6, r4, #3
     77e6:	009b      	lsls	r3, r3, #2
-    77e8:	18eb      	adds	r3, r5, r3
-    77ea:	78a2      	ldrb	r2, [r4, #2]
-				reg[a] += b;
-    77ec:	6819      	ldr	r1, [r3, #0]
-    77ee:	e7f5      	b.n	77dc <irep_exec+0x348>
+    77e8:	5958      	ldr	r0, [r3, r5]
+}
+    77ea:	46bd      	mov	sp, r7
+    77ec:	b015      	add	sp, #84	; 0x54
+    77ee:	bdf0      	pop	{r4, r5, r6, r7, pc}
     77f0:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
     77f2:	1ca6      	adds	r6, r4, #2
     77f4:	009b      	lsls	r3, r3, #2
     77f6:	18eb      	adds	r3, r5, r3
-				reg[a] -= reg[a + 1];
+				reg[a] += reg[a + 1];
     77f8:	681a      	ldr	r2, [r3, #0]
     77fa:	6859      	ldr	r1, [r3, #4]
-    77fc:	1a52      	subs	r2, r2, r1
-    77fe:	e7ee      	b.n	77de <irep_exec+0x34a>
-    7800:	7863      	ldrb	r3, [r4, #1]
+				reg[a] += b;
+    77fc:	188a      	adds	r2, r1, r2
+				vm->err = MRB_ERR_UNSUPPORTED_OPCODE;
+    77fe:	601a      	str	r2, [r3, #0]
+				break;
+    7800:	e724      	b.n	764c <irep_exec+0x198>
+    7802:	7863      	ldrb	r3, [r4, #1]
 				a = *p++; b = *p++;
-    7802:	78a2      	ldrb	r2, [r4, #2]
-    7804:	009b      	lsls	r3, r3, #2
-    7806:	18eb      	adds	r3, r5, r3
-				reg[a] -= b;
-    7808:	6819      	ldr	r1, [r3, #0]
-				a = *p++; b = *p++;
-    780a:	1ce6      	adds	r6, r4, #3
-				reg[a] -= b;
-    780c:	1a8a      	subs	r2, r1, r2
-    780e:	e7e6      	b.n	77de <irep_exec+0x34a>
+    7804:	1ce6      	adds	r6, r4, #3
+    7806:	009b      	lsls	r3, r3, #2
+    7808:	18eb      	adds	r3, r5, r3
+    780a:	78a2      	ldrb	r2, [r4, #2]
+				reg[a] += b;
+    780c:	6819      	ldr	r1, [r3, #0]
+    780e:	e7f5      	b.n	77fc <irep_exec+0x348>
     7810:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
     7812:	1ca6      	adds	r6, r4, #2
     7814:	009b      	lsls	r3, r3, #2
     7816:	18eb      	adds	r3, r5, r3
+				reg[a] -= reg[a + 1];
+    7818:	681a      	ldr	r2, [r3, #0]
+    781a:	6859      	ldr	r1, [r3, #4]
+    781c:	1a52      	subs	r2, r2, r1
+    781e:	e7ee      	b.n	77fe <irep_exec+0x34a>
+    7820:	7863      	ldrb	r3, [r4, #1]
+				a = *p++; b = *p++;
+    7822:	78a2      	ldrb	r2, [r4, #2]
+    7824:	009b      	lsls	r3, r3, #2
+    7826:	18eb      	adds	r3, r5, r3
+				reg[a] -= b;
+    7828:	6819      	ldr	r1, [r3, #0]
+				a = *p++; b = *p++;
+    782a:	1ce6      	adds	r6, r4, #3
+				reg[a] -= b;
+    782c:	1a8a      	subs	r2, r1, r2
+    782e:	e7e6      	b.n	77fe <irep_exec+0x34a>
+    7830:	7863      	ldrb	r3, [r4, #1]
+				a = *p++;
+    7832:	1ca6      	adds	r6, r4, #2
+    7834:	009b      	lsls	r3, r3, #2
+    7836:	18eb      	adds	r3, r5, r3
 				reg[a] *= reg[a + 1];
-    7818:	685a      	ldr	r2, [r3, #4]
-    781a:	6819      	ldr	r1, [r3, #0]
-    781c:	434a      	muls	r2, r1
-    781e:	e7de      	b.n	77de <irep_exec+0x34a>
+    7838:	685a      	ldr	r2, [r3, #4]
+    783a:	6819      	ldr	r1, [r3, #0]
+    783c:	434a      	muls	r2, r1
+    783e:	e7de      	b.n	77fe <irep_exec+0x34a>
 				a = *p++;
-    7820:	1ca6      	adds	r6, r4, #2
-    7822:	7864      	ldrb	r4, [r4, #1]
-    7824:	00a4      	lsls	r4, r4, #2
-    7826:	192c      	adds	r4, r5, r4
+    7840:	1ca6      	adds	r6, r4, #2
+    7842:	7864      	ldrb	r4, [r4, #1]
+    7844:	00a4      	lsls	r4, r4, #2
+    7846:	192c      	adds	r4, r5, r4
 				reg[a] /= reg[a + 1];
-    7828:	6861      	ldr	r1, [r4, #4]
-    782a:	6820      	ldr	r0, [r4, #0]
-    782c:	f7ff fc00 	bl	7030 <__divsi3>
-    7830:	e79a      	b.n	7768 <irep_exec+0x2d4>
+    7848:	6861      	ldr	r1, [r4, #4]
+    784a:	6820      	ldr	r0, [r4, #0]
+    784c:	f7ff fbf0 	bl	7030 <__divsi3>
+    7850:	e79a      	b.n	7788 <irep_exec+0x2d4>
 				reg[a] = reg[a] == reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7832:	2280      	movs	r2, #128	; 0x80
-    7834:	7863      	ldrb	r3, [r4, #1]
+    7852:	2280      	movs	r2, #128	; 0x80
+    7854:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
-    7836:	1ca6      	adds	r6, r4, #2
-    7838:	009b      	lsls	r3, r3, #2
-    783a:	18eb      	adds	r3, r5, r3
+    7856:	1ca6      	adds	r6, r4, #2
+    7858:	009b      	lsls	r3, r3, #2
+    785a:	18eb      	adds	r3, r5, r3
 				reg[a] = reg[a] == reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    783c:	6819      	ldr	r1, [r3, #0]
-    783e:	6858      	ldr	r0, [r3, #4]
-    7840:	0612      	lsls	r2, r2, #24
-    7842:	4281      	cmp	r1, r0
-    7844:	d1cb      	bne.n	77de <irep_exec+0x34a>
+    785c:	6819      	ldr	r1, [r3, #0]
+    785e:	6858      	ldr	r0, [r3, #4]
+    7860:	0612      	lsls	r2, r2, #24
+    7862:	4281      	cmp	r1, r0
+    7864:	d1cb      	bne.n	77fe <irep_exec+0x34a>
 				vm->err = MRB_ERR_UNSUPPORTED_OPCODE;
-    7846:	2201      	movs	r2, #1
-    7848:	e7c9      	b.n	77de <irep_exec+0x34a>
+    7866:	2201      	movs	r2, #1
+    7868:	e7c9      	b.n	77fe <irep_exec+0x34a>
 				reg[a] = reg[a] < reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    784a:	2280      	movs	r2, #128	; 0x80
-    784c:	7863      	ldrb	r3, [r4, #1]
+    786a:	2280      	movs	r2, #128	; 0x80
+    786c:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
-    784e:	1ca6      	adds	r6, r4, #2
-    7850:	009b      	lsls	r3, r3, #2
-    7852:	18eb      	adds	r3, r5, r3
+    786e:	1ca6      	adds	r6, r4, #2
+    7870:	009b      	lsls	r3, r3, #2
+    7872:	18eb      	adds	r3, r5, r3
 				reg[a] = reg[a] < reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7854:	6819      	ldr	r1, [r3, #0]
-    7856:	6858      	ldr	r0, [r3, #4]
-    7858:	0612      	lsls	r2, r2, #24
-    785a:	4281      	cmp	r1, r0
-    785c:	dabf      	bge.n	77de <irep_exec+0x34a>
-    785e:	e7f2      	b.n	7846 <irep_exec+0x3b2>
+    7874:	6819      	ldr	r1, [r3, #0]
+    7876:	6858      	ldr	r0, [r3, #4]
+    7878:	0612      	lsls	r2, r2, #24
+    787a:	4281      	cmp	r1, r0
+    787c:	dabf      	bge.n	77fe <irep_exec+0x34a>
+    787e:	e7f2      	b.n	7866 <irep_exec+0x3b2>
 				reg[a] = reg[a] <= reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7860:	2280      	movs	r2, #128	; 0x80
-    7862:	7863      	ldrb	r3, [r4, #1]
+    7880:	2280      	movs	r2, #128	; 0x80
+    7882:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
-    7864:	1ca6      	adds	r6, r4, #2
-    7866:	009b      	lsls	r3, r3, #2
-    7868:	18eb      	adds	r3, r5, r3
+    7884:	1ca6      	adds	r6, r4, #2
+    7886:	009b      	lsls	r3, r3, #2
+    7888:	18eb      	adds	r3, r5, r3
 				reg[a] = reg[a] <= reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    786a:	6819      	ldr	r1, [r3, #0]
-    786c:	6858      	ldr	r0, [r3, #4]
-    786e:	0612      	lsls	r2, r2, #24
-    7870:	4281      	cmp	r1, r0
-    7872:	dcb4      	bgt.n	77de <irep_exec+0x34a>
-    7874:	e7e7      	b.n	7846 <irep_exec+0x3b2>
+    788a:	6819      	ldr	r1, [r3, #0]
+    788c:	6858      	ldr	r0, [r3, #4]
+    788e:	0612      	lsls	r2, r2, #24
+    7890:	4281      	cmp	r1, r0
+    7892:	dcb4      	bgt.n	77fe <irep_exec+0x34a>
+    7894:	e7e7      	b.n	7866 <irep_exec+0x3b2>
 				reg[a] = reg[a] > reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7876:	2280      	movs	r2, #128	; 0x80
-    7878:	7863      	ldrb	r3, [r4, #1]
+    7896:	2280      	movs	r2, #128	; 0x80
+    7898:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
-    787a:	1ca6      	adds	r6, r4, #2
-    787c:	009b      	lsls	r3, r3, #2
-    787e:	18eb      	adds	r3, r5, r3
+    789a:	1ca6      	adds	r6, r4, #2
+    789c:	009b      	lsls	r3, r3, #2
+    789e:	18eb      	adds	r3, r5, r3
 				reg[a] = reg[a] > reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7880:	6819      	ldr	r1, [r3, #0]
-    7882:	6858      	ldr	r0, [r3, #4]
-    7884:	0612      	lsls	r2, r2, #24
-    7886:	4281      	cmp	r1, r0
-    7888:	dda9      	ble.n	77de <irep_exec+0x34a>
-    788a:	e7dc      	b.n	7846 <irep_exec+0x3b2>
+    78a0:	6819      	ldr	r1, [r3, #0]
+    78a2:	6858      	ldr	r0, [r3, #4]
+    78a4:	0612      	lsls	r2, r2, #24
+    78a6:	4281      	cmp	r1, r0
+    78a8:	dda9      	ble.n	77fe <irep_exec+0x34a>
+    78aa:	e7dc      	b.n	7866 <irep_exec+0x3b2>
 				reg[a] = reg[a] >= reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    788c:	2280      	movs	r2, #128	; 0x80
-    788e:	7863      	ldrb	r3, [r4, #1]
+    78ac:	2280      	movs	r2, #128	; 0x80
+    78ae:	7863      	ldrb	r3, [r4, #1]
 				a = *p++;
-    7890:	1ca6      	adds	r6, r4, #2
-    7892:	009b      	lsls	r3, r3, #2
-    7894:	18eb      	adds	r3, r5, r3
+    78b0:	1ca6      	adds	r6, r4, #2
+    78b2:	009b      	lsls	r3, r3, #2
+    78b4:	18eb      	adds	r3, r5, r3
 				reg[a] = reg[a] >= reg[a + 1] ? MRB_TRUE : MRB_FALSE;
-    7896:	6819      	ldr	r1, [r3, #0]
-    7898:	6858      	ldr	r0, [r3, #4]
-    789a:	0612      	lsls	r2, r2, #24
-    789c:	4281      	cmp	r1, r0
-    789e:	db9e      	blt.n	77de <irep_exec+0x34a>
-    78a0:	e7d1      	b.n	7846 <irep_exec+0x3b2>
+    78b6:	6819      	ldr	r1, [r3, #0]
+    78b8:	6858      	ldr	r0, [r3, #4]
+    78ba:	0612      	lsls	r2, r2, #24
+    78bc:	4281      	cmp	r1, r0
+    78be:	db9e      	blt.n	77fe <irep_exec+0x34a>
+    78c0:	e7d1      	b.n	7866 <irep_exec+0x3b2>
 				a = *p++; b = *p++;
-    78a2:	1ce6      	adds	r6, r4, #3
-    78a4:	78a2      	ldrb	r2, [r4, #2]
+    78c2:	1ce6      	adds	r6, r4, #3
+    78c4:	78a2      	ldrb	r2, [r4, #2]
 				reg[a] = (intptr_t)irep_get(irep, IREP_TYPE_LITERAL, b) + 2;
-    78a6:	2101      	movs	r1, #1
-    78a8:	e6d0      	b.n	764c <irep_exec+0x1b8>
+    78c6:	2101      	movs	r1, #1
+    78c8:	e6d0      	b.n	766c <irep_exec+0x1b8>
 				a = *p++;
-    78aa:	1ca6      	adds	r6, r4, #2
+    78ca:	1ca6      	adds	r6, r4, #2
 				break;
-    78ac:	e6be      	b.n	762c <irep_exec+0x198>
+    78cc:	e6be      	b.n	764c <irep_exec+0x198>
 				a = *p++; b = *p++;
-    78ae:	78a2      	ldrb	r2, [r4, #2]
+    78ce:	78a2      	ldrb	r2, [r4, #2]
 				reg[a] = (intptr_t)irep_get(irep, IREP_TYPE_IREP, b);
-    78b0:	2103      	movs	r1, #3
-    78b2:	6af8      	ldr	r0, [r7, #44]	; 0x2c
-				a = *p++; b = *p++;
-    78b4:	1ce6      	adds	r6, r4, #3
-				reg[a] = (intptr_t)irep_get(irep, IREP_TYPE_IREP, b);
-    78b6:	f7ff fca7 	bl	7208 <irep_get>
-    78ba:	e6a6      	b.n	760a <irep_exec+0x176>
-				a = *p++; b = *p++;
-    78bc:	78a2      	ldrb	r2, [r4, #2]
-				const char* funcm = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
-    78be:	2102      	movs	r1, #2
-    78c0:	6af8      	ldr	r0, [r7, #44]	; 0x2c
-    78c2:	f7ff fca1 	bl	7208 <irep_get>
-    78c6:	7861      	ldrb	r1, [r4, #1]
-    78c8:	1c82      	adds	r2, r0, #2
-    78ca:	0089      	lsls	r1, r1, #2
-    78cc:	1869      	adds	r1, r5, r1
-				mrb_memory_add(vm, reg[a], funcm, reg[a + 1]);
-    78ce:	684b      	ldr	r3, [r1, #4]
-    78d0:	6ab8      	ldr	r0, [r7, #40]	; 0x28
-    78d2:	6809      	ldr	r1, [r1, #0]
+    78d0:	2103      	movs	r1, #3
+    78d2:	6af8      	ldr	r0, [r7, #44]	; 0x2c
 				a = *p++; b = *p++;
     78d4:	1ce6      	adds	r6, r4, #3
+				reg[a] = (intptr_t)irep_get(irep, IREP_TYPE_IREP, b);
+    78d6:	f7ff fc97 	bl	7208 <irep_get>
+    78da:	e6a6      	b.n	762a <irep_exec+0x176>
+				a = *p++; b = *p++;
+    78dc:	78a2      	ldrb	r2, [r4, #2]
+				const char* funcm = (const char*)(irep_get(irep, IREP_TYPE_SYMBOL, b) + 2);
+    78de:	2102      	movs	r1, #2
+    78e0:	6af8      	ldr	r0, [r7, #44]	; 0x2c
+    78e2:	f7ff fc91 	bl	7208 <irep_get>
+    78e6:	7861      	ldrb	r1, [r4, #1]
+    78e8:	1c82      	adds	r2, r0, #2
+    78ea:	0089      	lsls	r1, r1, #2
+    78ec:	1869      	adds	r1, r5, r1
 				mrb_memory_add(vm, reg[a], funcm, reg[a + 1]);
-    78d6:	f7ff fd2c 	bl	7332 <mrb_memory_add>
+    78ee:	684b      	ldr	r3, [r1, #4]
+    78f0:	6ab8      	ldr	r0, [r7, #40]	; 0x28
+    78f2:	6809      	ldr	r1, [r1, #0]
+				a = *p++; b = *p++;
+    78f4:	1ce6      	adds	r6, r4, #3
+				mrb_memory_add(vm, reg[a], funcm, reg[a + 1]);
+    78f6:	f7ff fd1c 	bl	7332 <mrb_memory_add>
 				break;
-    78da:	e6a7      	b.n	762c <irep_exec+0x198>
+    78fa:	e6a7      	b.n	764c <irep_exec+0x198>
 				a = *p++;
-    78dc:	7863      	ldrb	r3, [r4, #1]
-    78de:	1ca6      	adds	r6, r4, #2
+    78fc:	7863      	ldrb	r3, [r4, #1]
+    78fe:	1ca6      	adds	r6, r4, #2
 				reg[a] = reg[0]; // ??
-    78e0:	009b      	lsls	r3, r3, #2
-    78e2:	682a      	ldr	r2, [r5, #0]
-    78e4:	e686      	b.n	75f4 <irep_exec+0x160>
+    7900:	009b      	lsls	r3, r3, #2
+    7902:	682a      	ldr	r2, [r5, #0]
+    7904:	e686      	b.n	7614 <irep_exec+0x160>
 				opext = op - OP_EXT1 + 1;
-    78e6:	3b63      	subs	r3, #99	; 0x63
-    78e8:	613b      	str	r3, [r7, #16]
+    7906:	3b63      	subs	r3, #99	; 0x63
+    7908:	613b      	str	r3, [r7, #16]
 				break;
-    78ea:	e69f      	b.n	762c <irep_exec+0x198>
+    790a:	e69f      	b.n	764c <irep_exec+0x198>
 				vm->err = MRB_ERR_UNSUPPORTED_OPCODE;
-    78ec:	6abb      	ldr	r3, [r7, #40]	; 0x28
-    78ee:	e7aa      	b.n	7846 <irep_exec+0x3b2>
+    790c:	6abb      	ldr	r3, [r7, #40]	; 0x28
+    790e:	e7aa      	b.n	7866 <irep_exec+0x3b2>
 				return 0;
-    78f0:	2000      	movs	r0, #0
-    78f2:	e76a      	b.n	77ca <irep_exec+0x336>
+    7910:	2000      	movs	r0, #0
+    7912:	e76a      	b.n	77ea <irep_exec+0x336>

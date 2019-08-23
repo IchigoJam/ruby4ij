@@ -1,4 +1,4 @@
-RUBY_SRC = ruby/kawakudari
+RUBY_SRC = ruby/led
 #select from kawakudari, rnd, print, cls, sum, print and yours!
 
 # Settings to complie ruby

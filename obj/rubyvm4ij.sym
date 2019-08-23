@@ -12,4 +12,4 @@
 000072f8 T mrb_memory_find
 00007332 T mrb_memory_add
 00007370 T emb_method
-00007494 T irep_exec
+000074b4 T irep_exec

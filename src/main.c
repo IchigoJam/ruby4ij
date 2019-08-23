@@ -23,6 +23,8 @@ void emb_method(struct mrb_vm* vm, const char* func, intptr_t* reg, int a, int p
 		putc(reg[a + 1]);
 	} else if (mrb_strcmp(func, "print") == 0) {
 		putstr((const char*)reg[a + 1]);
+	} else if (mrb_strcmp(func, "led") == 0) {
+		out(7, reg[a + 1]);
 	} else {
 		x_printf("no methods err!!\n");
 		vm->err = MRB_ERR_NO_METHOD;
